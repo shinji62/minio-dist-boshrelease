@@ -10,11 +10,20 @@ There is already a minio-bosh release but for single tenant only.
 Minio S3 do not support **scale-out**  or **shrink** and could only be up to 16 nodes.
 This is not due to this bosh release but the desing from minio S3.
 
-author quote:
-```
- Minio is designed to never do that. Dynamic addition and removal of nodes are essential when all the storage nodes are managed by minio. Such a design is too complex and restrictive when it comes to cloud native application. Old design is to give all the resources to the storage system and let it manage them efficiently between the tenants. Minio is different by design. It is designed to solve all the needs of a single tenant. Spinning minio per tenant is the job of external orchestration layer. Any addition and removal means one has to reblanace the nodes. When Minio does it internally, it behaves like blackbox. It also adds significant complexity to Minio. Minio is designed to be deployed once and forgotten. We dont even want users to be replacing failed drives and nodes. Erasure code has enough redundancy built it. By the time half the nodes or drives are gone, it is time to refresh all the hardware. If the user still requires rebalancing, one can always start a new minio server on the same system on a different port and simply migrate the data over. It is essentially what minio would do internally. Doing it externally means more control and visibility.
-```
 
+ > Minio is designed to never do that.
+ 
+ > Dynamic addition and removal of nodes are essential when all the storage nodes are managed by minio. 
+ > Such a design is too complex and restrictive when it comes to cloud native application. 
+ 
+ > Old design is to give all the resources to the storage system and let it manage them efficiently between the tenants. 
+ > Minio is different by design. 
+ > It is designed to solve all the needs of a single tenant. Spinning minio per tenant is the job of external orchestration  
+ > layer. Any addition and removal means one has to reblanace the nodes.  When Minio does it internally, it behaves like blackbox.It also adds significant complexity to Minio. 
+ 
+> Minio is designed to be deployed once and forgotten. We dont even want users to be replacing failed drives and nodes. Erasure code has enough redundancy built it. By the time half the nodes or drives are gone, it is time to refresh all the hardware. If the user still requires rebalancing, one can always start a new minio server on the same system on a different port and simply migrate the data over. It is essentially what minio would do internally. Doing it externally means more control and visibility.
+
+- https://github.com/abperiasamy
 
 
 
