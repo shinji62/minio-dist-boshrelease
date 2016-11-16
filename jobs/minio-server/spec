@@ -1,0 +1,35 @@
+---
+name: minio-server
+packages:
+  - minio
+
+
+consumes:
+- name: minio
+  type: server
+
+provides:
+- name: minio
+  type: server
+
+
+templates:
+  bin/minio_ctl.erb: bin/minio_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+
+
+properties:
+  minio.port:
+    description: "Port for uses by minio Server"
+    default: 9000
+  minio.access_key:
+    description: "Master Access Key for Minio"
+  minio.secret_key:
+    description: "Master secret Key for Minio"
+
+
+

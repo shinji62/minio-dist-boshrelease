@@ -11,8 +11,8 @@ jobs:
     templates:
     - name: just_install_packages
       release: minio-dist
-    instances: 1
-    persistent_disk: 0
+    instances: 4
+    persistent_disk: 1024
     resource_pool: small_z1
     networks: (( param "Please configure the networks for this job" ))
 

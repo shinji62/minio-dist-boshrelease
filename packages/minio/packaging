@@ -1,0 +1,12 @@
+set -e -x
+
+export GOROOT=$(readlink -nf /var/vcap/packages/golang1.7)
+export GIT=$(readlink -nf /var/vcap/packages/git)
+export PATH=$GIT/bin:$GOROOT/bin:$PATH
+export GOPATH=$PWD/minio
+
+cd $GOPATH/src/github.com/minio/minio
+
+make install
+
+cp -a $GOPATH/../minio/bin/minio ${BOSH_INSTALL_TARGET}

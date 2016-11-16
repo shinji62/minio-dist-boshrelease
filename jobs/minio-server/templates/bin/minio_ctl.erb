@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Setup env vars and folders for the webapp_ctl script 
+
+
+
+
+export JOB_NAME="minio-server"
+export LANG=en_US.UTF-8
+export PATH=/var/vcap/packages/minio/:${PATH}
+
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+TMP_DIR=/var/vcap/sys/tmp/$JOB_NAME
+STORE_DIR=/var/vcap/store/minio-server
+
+mkdir -p ${RUN_DIR} ${LOG_DIR} ${TMP_DIR} ${STORE_DIR}
+
+
+PIDFILE=${RUN_DIR}/$JOB_NAME.pid
+
+source /var/vcap/jobs/$JOB_NAME/helpers/ctl_utils.sh 
+
+export MINIO_ACCESS_KEY=<%=p("minio.access_key")%>
+export MINIO_SECRET_KEY=<%=p("minio.secret_key")%>
+case $1 in
+
+  start)
+    pid_guard $PIDFILE $JOB_NAME
+
+    # store pid in $PIDFILE
+    echo $$ > $PIDFILE
+
+
+
+    exec minio server --address ":<%=p("minio.port")%>" <% link("minio").instances.map do |instance| %> "http://<%=instance.address%>${STORE_DIR}/" <%end%>  >>  ${LOG_DIR}/minio_server.stdout.log 2>> ${LOG_DIR}/minio_server.stderr.log
+
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+
+    ;;
+  *)
+    echo "Usage: minio-server_ctl {start|stop}"
+
+    ;;
+
+esac
+exit 0
