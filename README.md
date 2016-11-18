@@ -1,7 +1,7 @@
 # BOSH Release for minio-dist
 **Early Stage**
 
-This bosh release will help to install a distributed version of minio.
+This bosh release will help to install a distributed version of minio, using bosh.
 There is already a minio-bosh release but for single tenant only.
 
 

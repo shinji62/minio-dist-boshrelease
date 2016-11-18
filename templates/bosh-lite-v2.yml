@@ -1,0 +1,45 @@
+---
+name: minio-deployment
+
+director_uuid: "fb70f16a-4d6f-41f8-bc2e-0181a03dff18"
+
+
+releases:
+- name: minio-dist
+  version: latest
+
+
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+
+instance_groups:
+- name: minio-cluster
+  instances: 6
+  azs: [default]
+  jobs:
+  - name: just_install_packages
+    release: minio-dist
+  - name: minio-server
+    release: minio-dist
+    properties: 
+      minio:
+        access_key: SM4SSAYVNH7ZAHYYGC72
+        secret_key: "HSa6iOTf8LzdRFq/5JvhfWxfR87S3qE3mnugSndG"
+  vm_type: default
+  stemcell: default
+  persistent_disk_type: default-2G
+  networks:
+  - name: default
+
+
+
+
+update:
+  canaries: 1
+  max_in_flight: 10
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
