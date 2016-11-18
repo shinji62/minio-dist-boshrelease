@@ -2,7 +2,18 @@
 **Early Stage**
 
 This bosh release will help to install a distributed version of minio, using bosh.
+
 There is already a minio-bosh release but for single tenant only.
+
+## Creating multiple pool
+
+Minio S3 do not support scale-out instead you can create multiple pool up to 16 nodes.
+
+As bosh can mount only 1 persistent disk by VM it didn't make sens to put multiple minio server process on the same VM.
+
+So instead we create multiple pool, you can check an example in 
+`templates/bosh-lite-v2-2clusters.yml` this uses bosh'ish 2.0
+
 
 
 ## Important !!!
@@ -26,56 +37,23 @@ This is not due to this bosh release but the desing from minio S3.
 - https://github.com/abperiasamy
 
 
-
 ## Usage
 
 To use this bosh release, first upload it to your bosh:
 
 ```
 bosh target BOSH_HOST
-git clone https://github.com/cloudfoundry-community/minio-dist-boshrelease.git
+git clone https://github.com/shinji62/minio-dist-boshrelease.git
 cd minio-dist-boshrelease
 bosh upload release releases/minio-dist/minio-dist-1.yml
 ```
 
-For [bosh-lite](https://github.com/cloudfoundry/bosh-lite), you can quickly create a deployment manifest & deploy a cluster. Note that this requires that you have installed [spruce](https://github.com/geofffranks/spruce).
-
+For [bosh-lite](https://github.com/cloudfoundry/bosh-lite), you can use a manifest example `templates/bosh-lite-v2.yml`.
 ```
-templates/make_manifest warden
+bosh deployment templates/bosh-lite-v2.yml
 bosh -n deploy
 ```
 
-For AWS EC2, create a single VM:
-
-```
-templates/make_manifest aws-ec2
-bosh -n deploy
-```
-
-### Override security groups
-
-For AWS & Openstack, the default deployment assumes there is a `default` security group. If you wish to use a different security group(s) then you can pass in additional configuration when running `make_manifest` above.
-
-Create a file `my-networking.yml`:
-
-``` yaml
----
-networks:
-  - name: minio-dist1
-    type: dynamic
-    cloud_properties:
-      security_groups:
-        - minio-dist
-```
-
-Where `- minio-dist` means you wish to use an existing security group called `minio-dist`.
-
-You now suffix this file path to the `make_manifest` command:
-
-```
-templates/make_manifest openstack-nova my-networking.yml
-bosh -n deploy
-```
 
 ### Development
 
