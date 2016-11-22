@@ -15,7 +15,6 @@ So instead we create multiple pool, you can check an example in
 `templates/bosh-lite-v2-2clusters.yml` this uses bosh'ish 2.0
 
 
-
 ## Important !!!
 
 Minio S3 do not support **scale-out**  or **shrink** and could only be up to 16 nodes.
