@@ -11,7 +11,10 @@ consumes:
 provides:
 - name: minio
   type: server
-
+  properties:
+  - minio.port
+  - minio.access_key
+  - minio.secret_key 
 
 templates:
   bin/minio_ctl.erb: bin/minio_ctl

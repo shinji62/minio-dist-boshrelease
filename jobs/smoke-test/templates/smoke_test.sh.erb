@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Setup env vars and folders for the webapp_ctl script 
+
+export LANG=en_US.UTF-8
+export PATH=/var/vcap/packages/mc/:${PATH}
+
+
+
+
+
+# Simple test
+# Try to bucket on every instances
+# Try to upload small file on every bucket
+# Download files test content
+ <% minio_link = link("minio") %>
+ <% @i=0 %>
+    <% minio_link.instances.map do |instance| %>
+     mc config host add minio-<%=@i%> http://<%=instance.address%>:<%=minio_link.p("minio.port")%>/ \
+     <%=minio_link.p("minio.access_key")%> \
+     "<%=minio_link.p("minio.secret_key")%>" --quiet --no-color
+
+     mc mb minio-<%=@i%>/minio-<%=@i%> --quiet --no-color
+     echo "Test-minio-<%=@i%>" > ./test-minio-<%=@i%>.txt
+     mc cp ./test-minio-<%=@i%>.txt minio-<%=@i%>/minio-<%=@i%> --quiet --no-color
+     mc cat minio-<%=@i%>/minio-<%=@i%>/test-minio-<%=@i%>.txt --quiet --no-color
+     mc rm minio-<%=@i%>/minio-<%=@i%>/test-minio-<%=@i%>.txt --quiet --no-color
+     mc rm minio-<%=@i%>/minio-<%=@i%> --quiet --no-color
+ <% @i+=1; %>
+ <% end %>
+ 

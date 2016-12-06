@@ -3,6 +3,7 @@ name: just_install_packages
 packages:
   - golang1.7
   - minio
+  - mc
 templates:
   ignoreme: ignoreme
 properties: {}

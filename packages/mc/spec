@@ -1,0 +1,7 @@
+---
+name: mc
+dependencies:
+  - golang1.7
+  - git
+files:
+- minio/src/github.com/minio/**/*

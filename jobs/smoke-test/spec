@@ -1,0 +1,17 @@
+---
+name: smoke-test
+packages:
+  - mc
+
+templates:
+  smoke_test.sh.erb: bin/run
+
+consumes:
+- name: minio
+  type: server
+
+
+
+properties: {}
+
+

@@ -35,6 +35,18 @@ instance_groups:
   networks:
   - name: default
 
+- name: smoke-test
+  instances: 1
+  lifecycle: errand
+  azs: [default]
+  jobs:
+  - name: smoke-test
+    release: minio-dist
+  vm_type: default
+  stemcell: default
+  networks:
+  - name: default
+
 
 
 
