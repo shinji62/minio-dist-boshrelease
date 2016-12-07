@@ -60,6 +60,13 @@ If you have multiple pool within the same deployment you can use links propertie
 ```
 
 
+### Minio version
+| bosh release tag | Minio tag |
+| ----------| -------- |
+|v1|https://github.com/minio/minio/commits/4098025c117225d0aa5092cb5146ce3cbf97b444|
+|v2|https://github.com/minio/minio/commits/5c9a95df32ed63e0358914a97025d7417ac7e313|
+
+
 ## Important !!!
 
 Minio S3 do not support **scale-out**  or **shrink** and could only be up to 16 nodes.
