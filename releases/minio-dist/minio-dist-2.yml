@@ -1,0 +1,47 @@
+---
+packages:
+- name: git
+  version: 889205bef999ca6f078d4ee7b779186b45c1fa63
+  fingerprint: 889205bef999ca6f078d4ee7b779186b45c1fa63
+  sha1: 55e9b7c9c18b5c62e8534c556708fca985772f38
+  dependencies: []
+- name: golang1.7
+  version: 91909d54d203acc915a4392b52c37716e15b5aff
+  fingerprint: 91909d54d203acc915a4392b52c37716e15b5aff
+  sha1: fa42562bfdfa665a6bae9e0e6e9f882a90916245
+  dependencies: []
+- name: mc
+  version: 37592300ef3ef5381de95ca47ac53b3245f9e820
+  fingerprint: 37592300ef3ef5381de95ca47ac53b3245f9e820
+  sha1: 927526820ef68ceec2913c8001e331a0a4d48f79
+  dependencies:
+  - git
+  - golang1.7
+- name: minio
+  version: 4c6e5e55d8de1baef6ccd816f8447e9fb96f74e8
+  fingerprint: 4c6e5e55d8de1baef6ccd816f8447e9fb96f74e8
+  sha1: 36f8893510b52ca31756fffb01e70844ac204651
+  dependencies:
+  - git
+  - golang1.7
+jobs:
+- name: just_install_packages
+  version: 28250ea15d595f98b23048af88ed7a06713cdfa4
+  fingerprint: 28250ea15d595f98b23048af88ed7a06713cdfa4
+  sha1: 25a2e90b0143e9d0861ade1be93f96e8d846ef46
+- name: minio-server
+  version: 8351e1442ca77c067c2a350f66f7c7c2c4927bee
+  fingerprint: 8351e1442ca77c067c2a350f66f7c7c2c4927bee
+  sha1: 103097ce129d91e2b62a16ef83726e7cc52e16bc
+- name: smoke-test
+  version: f8ea5a70cd3e6ead670608c28d6fd6a5fd88a4fd
+  fingerprint: f8ea5a70cd3e6ead670608c28d6fd6a5fd88a4fd
+  sha1: 8f90c7c9cca8e208cc050cd65802745e9fbfc3f0
+license:
+  version: e75ed47afa4066d97253fa7632f56bc461eda1ad
+  fingerprint: e75ed47afa4066d97253fa7632f56bc461eda1ad
+  sha1: 5d2f853f566af84dacfaf6d9ea042afa93b0300b
+commit_hash: 72b321d7
+uncommitted_changes: true
+name: minio-dist
+version: '2'
