@@ -15,6 +15,51 @@ So instead we create multiple pool, you can check an example in
 `templates/bosh-lite-v2-2clusters.yml` this uses bosh'ish 2.0
 
 
+## Smoke-test
+
+smoke-test are very simple, but could heklp to verify that your deployment is working. So for each nodes :
+
+    * Create bucket
+    * Upload file
+    * Read file
+    * Delete bucket 
+
+### Run smoke-test
+Just adds errand to your deployment.
+
+```yaml
+- name: smoke-test
+  instances: 1
+  lifecycle: errand
+  azs: [default]
+  jobs:
+  - name: smoke-test
+    release: minio-dist
+  vm_type: default
+  stemcell: default
+  networks:
+  - name: default
+```
+
+If you have multiple pool within the same deployment you can use links properties. Just adapt `minio-cluster2`
+
+```yaml
+- name: smoke-test
+  instances: 1
+  lifecycle: errand
+  azs: [default]
+  jobs:
+  - name: smoke-test
+    release: minio-dist
+    consumes:
+      minio: {from: minio-cluster2}
+  vm_type: default
+  stemcell: default
+  networks:
+  - name: default
+```
+
+
 ## Important !!!
 
 Minio S3 do not support **scale-out**  or **shrink** and could only be up to 16 nodes.
