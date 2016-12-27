@@ -19,9 +19,9 @@ export PATH=/var/vcap/packages/mc/:${PATH}
  <% minio_link = link("minio") %>
  <% @i=0 %>
     <% minio_link.instances.map do |instance| %>
-     mc config host add minio-<%=@i%> http://<%=instance.address%>:<%=minio_link.p("minio.port")%>/ \
-     <%=minio_link.p("minio.access_key")%> \
-     "<%=minio_link.p("minio.secret_key")%>" --quiet --no-color
+     mc config host add minio-<%=@i%> http://<%=instance.address%>:<%=minio_link.p("port")%>/ \
+     <%=minio_link.p("access_key")%> \
+     "<%=minio_link.p("secret_key")%>" --quiet --no-color
 
      mc mb minio-<%=@i%>/minio-<%=@i%> --quiet --no-color
      echo "Test-minio-<%=@i%>" > ./test-minio-<%=@i%>.txt

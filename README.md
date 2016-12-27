@@ -11,7 +11,7 @@ Minio S3 do not support scale-out instead you can create multiple pool up to 16 
 
 As bosh can mount only 1 persistent disk by VM it didn't make sens to put multiple minio server process on the same VM.
 
-So instead we create multiple pool, you can check an example in 
+So instead we create multiple pool, you can check an example in
 `templates/bosh-lite-v2-2clusters.yml` this uses bosh'ish 2.0
 
 
@@ -22,7 +22,7 @@ smoke-test are very simple, but could heklp to verify that your deployment is wo
     * Create bucket
     * Upload file
     * Read file
-    * Delete bucket 
+    * Delete bucket
 
 ### Run smoke-test
 Just adds errand to your deployment.
@@ -65,6 +65,8 @@ If you have multiple pool within the same deployment you can use links propertie
 | ----------| -------- |
 |v1|https://github.com/minio/minio/commits/4098025c117225d0aa5092cb5146ce3cbf97b444|
 |v2|https://github.com/minio/minio/commits/5c9a95df32ed63e0358914a97025d7417ac7e313|
+|v3|https://github.com/minio/minio/commits/29d72b84c07f9555f83a6485fe8291e18d23811b|
+
 
 
 ## Important !!!
@@ -74,15 +76,15 @@ This is not due to this bosh release but the desing from minio S3.
 
 
  > Minio is designed to never do that.
- 
- > Dynamic addition and removal of nodes are essential when all the storage nodes are managed by minio. 
- > Such a design is too complex and restrictive when it comes to cloud native application. 
- 
- > Old design is to give all the resources to the storage system and let it manage them efficiently between the tenants. 
- > Minio is different by design. 
+
+ > Dynamic addition and removal of nodes are essential when all the storage nodes are managed by minio.
+ > Such a design is too complex and restrictive when it comes to cloud native application.
+
+ > Old design is to give all the resources to the storage system and let it manage them efficiently between the tenants.
+ > Minio is different by design.
  > It is designed to solve all the needs of a single tenant. Spinning minio per tenant is the job of external orchestration  
- > layer. Any addition and removal means one has to reblanace the nodes.  When Minio does it internally, it behaves like blackbox.It also adds significant complexity to Minio. 
- 
+ > layer. Any addition and removal means one has to reblanace the nodes.  When Minio does it internally, it behaves like blackbox.It also adds significant complexity to Minio.
+
 > Minio is designed to be deployed once and forgotten. We dont even want users to be replacing failed drives and nodes. Erasure code has enough redundancy built it. By the time half the nodes or drives are gone, it is time to refresh all the hardware. If the user still requires rebalancing, one can always start a new minio server on the same system on a different port and simply migrate the data over. It is essentially what minio would do internally. Doing it externally means more control and visibility.
 
 - https://github.com/abperiasamy

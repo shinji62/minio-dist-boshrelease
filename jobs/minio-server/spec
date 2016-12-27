@@ -12,9 +12,9 @@ provides:
 - name: minio
   type: server
   properties:
-  - minio.port
-  - minio.access_key
-  - minio.secret_key 
+  - port
+  - access_key
+  - secret_key 
 
 templates:
   bin/minio_ctl.erb: bin/minio_ctl
@@ -26,12 +26,12 @@ templates:
 
 
 properties:
-  minio.port:
+  port:
     description: "Port for uses by minio Server"
     default: 9000
-  minio.access_key:
+  access_key:
     description: "Master Access Key for Minio"
-  minio.secret_key:
+  secret_key:
     description: "Master secret Key for Minio"
 
 

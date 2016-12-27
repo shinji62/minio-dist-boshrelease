@@ -24,8 +24,8 @@ PIDFILE=${RUN_DIR}/$JOB_NAME.pid
 
 source /var/vcap/jobs/$JOB_NAME/helpers/ctl_utils.sh 
 
-export MINIO_ACCESS_KEY=<%=p("minio.access_key")%>
-export MINIO_SECRET_KEY=<%=p("minio.secret_key")%>
+export MINIO_ACCESS_KEY=<%=p("access_key")%>
+export MINIO_SECRET_KEY=<%=p("secret_key")%>
 case $1 in
 
   start)
@@ -36,7 +36,7 @@ case $1 in
 
 
 
-    exec minio server --address ":<%=p("minio.port")%>" <% link("minio").instances.map do |instance| %> "http://<%=instance.address%>${STORE_DIR}/" <%end%>  >>  ${LOG_DIR}/minio_server.stdout.log 2>> ${LOG_DIR}/minio_server.stderr.log
+    exec minio server --address ":<%=p("port")%>" <% link("minio").instances.map do |instance| %> "http://<%=instance.address%>${STORE_DIR}/" <%end%>  >>  ${LOG_DIR}/minio_server.stdout.log 2>> ${LOG_DIR}/minio_server.stderr.log
 
     ;;
 
