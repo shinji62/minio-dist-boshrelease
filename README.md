@@ -61,11 +61,12 @@ If you have multiple pool within the same deployment you can use links propertie
 
 
 ### Minio version
-| bosh release tag | Minio tag |
-| ----------| -------- |
-|v1|https://github.com/minio/minio/commits/4098025c117225d0aa5092cb5146ce3cbf97b444|
-|v2|https://github.com/minio/minio/commits/5c9a95df32ed63e0358914a97025d7417ac7e313|
-|v3|https://github.com/minio/minio/commits/29d72b84c07f9555f83a6485fe8291e18d23811b|
+| bosh release tag | Minio tag | Release
+| ----------| -------- | -------- |
+|v1|https://github.com/minio/minio/commits/4098025c117225d0aa5092cb5146ce3cbf97b444||
+|v2|https://github.com/minio/minio/commits/5c9a95df32ed63e0358914a97025d7417ac7e313||
+|v3|https://github.com/minio/minio/commits/29d72b84c07f9555f83a6485fe8291e18d23811b|RELEASE.2016-12-13T17-19-42Z|
+|v4|https://github.com/minio/minio/commits/29b49f9343e63a896070d75b5be377292d4736f2|RELEASE.2017-01-25T03-14-52Z|
 
 
 
@@ -98,7 +99,7 @@ To use this bosh release, first upload it to your bosh:
 bosh target BOSH_HOST
 git clone https://github.com/shinji62/minio-dist-boshrelease.git
 cd minio-dist-boshrelease
-bosh upload release releases/minio-dist/minio-dist-1.yml
+bosh upload release releases/minio-dist/minio-dist-X.yml
 ```
 
 For [bosh-lite](https://github.com/cloudfoundry/bosh-lite), you can use a manifest example `templates/bosh-lite-v2.yml`.
