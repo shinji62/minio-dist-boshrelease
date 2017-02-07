@@ -1,17 +1,16 @@
 ---
-name: smoke-test
-packages:
-  - mc
+name: smoke-tests
 
 templates:
-  smoke_test.sh.erb: bin/run
+  run: bin/run
+
+packages:
+- golang1.7
+- minio
+- mc
 
 consumes:
 - name: minio
   type: server
 
-
-
 properties: {}
-
-
