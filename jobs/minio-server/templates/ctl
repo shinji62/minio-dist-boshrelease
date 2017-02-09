@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e -u
+
+RUN_DIR=/var/vcap/sys/run/minio-server
+LOG_DIR=/var/vcap/sys/log/minio-server
+TMP_DIR=/var/vcap/sys/tmp/minio-server
+STORE_DIR=/var/vcap/store/minio-server
+mkdir -p ${RUN_DIR} ${LOG_DIR} ${TMP_DIR} ${STORE_DIR}
+
+PIDFILE=${RUN_DIR}/minio-server.pid
+
+case $1 in
+
+  start)
+    export LANG=en_US.UTF-8
+    export MINIO_ACCESS_KEY=<%= p("access_key") %>
+    export MINIO_SECRET_KEY=<%= p("secret_key") %>
+
+    echo $$ > $PIDFILE
+
+    exec /var/vcap/packages/minio/minio server \
+      --address ":<%=p("port")%>" \
+      <% link("minio").instances.map { |instance| %> "http://<%= instance.address %>${STORE_DIR}/" <% } %>  \
+      >>  ${LOG_DIR}/minio_server.stdout.log \
+      2>> ${LOG_DIR}/minio_server.stderr.log
+
+    ;;
+
+  stop)
+    if [ -f $PIDFILE ]; then
+      kill -9 `cat $PIDFILE` || true
+      rm -f $PIDFILE
+    fi
+
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}"
+
+    ;;
+
+esac
+exit 0

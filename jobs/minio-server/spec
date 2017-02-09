@@ -1,8 +1,13 @@
 ---
 name: minio-server
-packages:
-  - minio
 
+templates:
+  ctl: bin/ctl
+
+packages:
+- golang1.7
+- minio
+- mc
 
 consumes:
 - name: minio
@@ -16,23 +21,16 @@ provides:
   - access_key
   - secret_key 
 
-templates:
-  bin/minio_ctl.erb: bin/minio_ctl
-  bin/monit_debugger: bin/monit_debugger
-  data/properties.sh.erb: data/properties.sh
-  helpers/ctl_setup.sh: helpers/ctl_setup.sh
-  helpers/ctl_utils.sh: helpers/ctl_utils.sh
-
-
-
 properties:
   port:
     description: "Port for uses by minio Server"
     default: 9000
+
+  # todo ssl support?
+
   access_key:
+    type: password
     description: "Master Access Key for Minio"
   secret_key:
+    type: password
     description: "Master secret Key for Minio"
-
-
-
