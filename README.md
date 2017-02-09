@@ -4,9 +4,18 @@
 
 This release will help to install a distributed version of [Minio](https://minio.io/).
 
+This release use the new **[bosh cli](https://github.com/cloudfoundry/bosh-cli)**
+
 ```
 $ bosh -d minio deploy manifests/example.yml --vars-store /tmp/minio-creds.yml
 ```
+
+## Examples
+There is 2 examples one with only one cluster `manifests/example.yml` and one with 2 clusters `manifests/example-2cluster.yml`
+
+
+
+
 
 ## Important !!!
 
@@ -51,6 +60,10 @@ Just adds errand to your deployment to run smoke tests:
   stemcell: default
   networks:
   - name: default
+```
+To run the errand
+```
+bosh run-errand smoke-tests -d minio
 ```
 
 If you have multiple pools within the same deployment you can use links to configure smoke test job.

@@ -1,0 +1,95 @@
+---
+name: minio
+
+releases:
+- name: minio-dist
+  version: latest
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 10
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
+
+instance_groups:
+- name: minio
+  instances: 6
+  azs: [z1, z2, z3]
+  jobs:
+  - name: minio-server
+    release: minio-dist
+    consumes:
+      minio: {from: minio-cluster1}
+    provides:
+      minio: {as: minio-cluster1}
+    properties:
+      access_key: ((access_key))
+      secret_key: ((secret_key))
+  vm_type: default
+  stemcell: default
+  persistent_disk: 2048
+  networks:
+  - name: default
+
+- name: minio-cluster2
+  instances: 6
+  azs: [z1, z2, z3]
+  jobs:
+  - name: minio-server
+    release: minio-dist
+    consumes:
+      minio: {from: minio-cluster2}
+    provides:
+      minio: {as: minio-cluster2}
+    properties:
+      access_key: ((access_key_2))
+      secret_key: ((secret_key_2))
+  vm_type: default
+  stemcell: default
+  persistent_disk: 2048
+  networks:
+  - name: default
+
+
+- name: smoke-tests-1
+  instances: 1
+  lifecycle: errand
+  azs: [z1]
+  jobs:
+  - name: smoke-tests
+    release: minio-dist
+    consumes:
+      minio: {from: minio-cluster1}
+  vm_type: default
+  stemcell: default
+  networks:
+  - name: default
+
+- name: smoke-tests-2
+  instances: 1
+  lifecycle: errand
+  azs: [z1]
+  jobs:
+  - name: smoke-tests
+    release: minio-dist
+    consumes:
+      minio: {from: minio-cluster2}
+  vm_type: default
+  stemcell: default
+  networks:
+  - name: default
+
+variables:
+- name: access_key
+  type: password
+- name: secret_key
+  type: password
+- name: access_key_2
+  type: password
+- name: secret_key_2
+  type: password
