@@ -1,0 +1,5 @@
+check process minio-gateway
+  with pidfile /var/vcap/sys/run/minio-gateway/minio-gateway.pid
+  start program "/var/vcap/jobs/minio-gateway/bin/ctl start"
+  stop program "/var/vcap/jobs/minio-gateway/bin/ctl stop"
+  group vcap

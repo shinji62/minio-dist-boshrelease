@@ -1,0 +1,32 @@
+---
+name: minio-gateway
+
+templates:
+  ctl: bin/ctl
+
+packages:
+- golang1.7
+- minio
+- mc
+
+provides:
+- name: minio
+  type: gateway
+  properties:
+  - port
+  - access_key
+  - secret_key
+
+properties:
+  port:
+    description: "Port for uses by minio Server"
+    default: 9000
+  gateway_type:
+    description: "Gateway type, only azure is supported right now"
+    default: "azure"
+  access_key:
+    type: password
+    description: "Master Access Key for Minio"
+  secret_key:
+    type: password
+    description: "Master secret Key for Minio"

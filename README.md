@@ -1,8 +1,9 @@
 # BOSH Release for Minio
 
-**Early Stage**
 
 This release will help to install a distributed version of [Minio](https://minio.io/).
+
+
 
 This release use the new **[bosh cli](https://github.com/cloudfoundry/bosh-cli)**
 
@@ -10,11 +11,38 @@ This release use the new **[bosh cli](https://github.com/cloudfoundry/bosh-cli)*
 $ bosh -d minio deploy manifests/example.yml --vars-store /tmp/minio-creds.yml
 ```
 
-## Examples
+## Feature
+Distributed Minio Server
+
+Since v6 Minio **[Cloud Storage Gateway](http://docs.minio.io/docs/minio-cloud-storage-gateway)**
+
+## Minio Server
+### Examples
+
+#### Minio server
 There is 2 examples one with only one cluster `manifests/example.yml` and one with 2 clusters `manifests/example-2cluster.yml`
 
 
+### Gateway
+Only **Azure** is supported
+You just need your storage account name and your key
+```yaml
+- name: minio-gateway
+  instances: 1
+  azs: [default]
+  jobs:
+  - name: minio-gateway
+    release: minio-dist
+    properties:
+      access_key: azurestorageaccount
+      secret_key: azurekey
+  vm_type: default
+  stemcell: default
+  persistent_disk: 2048
+  networks:
+  - name: default
 
+```
 
 
 ## Important !!!
@@ -75,4 +103,5 @@ If you have multiple pools within the same deployment you can use links to confi
 |v1|https://github.com/minio/minio/commits/4098025||
 |v2|https://github.com/minio/minio/commits/5c9a95d||
 |v3|https://github.com/minio/minio/commits/29d72b84|RELEASE.2016-12-13T17-19-42Z|
-|v4|https://github.com/minio/minio/commits/29b49f93|RELEASE.2017-01-25T03-14-52Z|
+|v4-v5|https://github.com/minio/minio/commits/29b49f93|RELEASE.2017-01-25T03-14-52Z|
+|v6|https://github.com/minio/minio/commit/6e7d33df|RELEASE.2017-03-16T21-50-32Z|
